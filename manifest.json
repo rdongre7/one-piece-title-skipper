@@ -8,13 +8,14 @@
     ],
     "persistent": false
   },
-  "page_action": {
+  "browser_action": {
+    "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
   "content_scripts": [
     {
       "matches": [
-        "https://*.crunchyroll.com/*"
+        "https://*.crunchyroll.com/"
       ],
       "run_at": "document_end",
       "all_frames": true,
@@ -28,5 +29,8 @@
     "declarativeContent",
     "storage"
   ],
+  "icons": {
+    "48": "icon.png"
+  },
   "manifest_version": 2
 }
