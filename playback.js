@@ -92,11 +92,6 @@ function checkLimit(playbackRate) {
     return playbackRate;
 }
 
-/**
- * Set or update playback speed of video player for future views.
- * @param {HTMLElement} videoPlayer - The video player element
- * @param {Number} playbackRate - Value of playback speed to save/set
- */
 function getOrUpdatePlaybackValue(videoPlayer, playbackValue) {
     if (playbackValue) {
         localStorage.setItem('cr_playback_speed', playbackValue);
