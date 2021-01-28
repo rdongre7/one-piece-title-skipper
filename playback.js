@@ -1,6 +1,6 @@
 window.onload = function () {
     const videoPlayer = document.querySelector('video');
-    const comments = document.getElementById('allCommentsList');
+    var comments = document.getElementById('allCommentsList');
     if (comments != null) {
         setTimestamp(comments);
     }
@@ -47,21 +47,25 @@ function videoControls(videoPlayer, e, timestamp) {
 function setTimestamp(comments) {
     console.log("Reached function");
     if (comments) {
-        function isTimestamp(text) {
-            return /^[0-9]:[0-5][0-9]$/.test(text);
+        function extractTimestamp(text) {
+            var ind = text.search(/[0-9]:[0-5][0-9]/g);
+            return ind;
         }
         for (var i = 0; i < comments.children.length; i++) {
-            var arr = comments.children[i].innerText.split(/\s+/g);
-            for (var j = 0; j < arr.length; j++) {
-                if (isTimestamp(arr[j])) {
-                    var seconds = 0;
-                    seconds += 60 * parseInt(arr[j][0]);
-                    seconds += 10 * parseInt(arr[j][2]);
-                    seconds += parseInt(arr[j][3]);
-                    chrome.storage.local.set({ "cr_title_timestamp": seconds }, function () {
-                        console.log('Value is set to ' + seconds);
-                    });
-                }
+            const comment = comments.children[i].innerText;
+            var timestamp_index = extractTimestamp(comment);
+            if (timestamp_index != -1) {
+                var timestamp = comment.substring(timestamp_index,
+                    timestamp_index + 4);
+                console.log(timestamp);
+                var seconds = 0;
+                seconds += 60 * parseInt(timestamp[0]);
+                seconds += 10 * parseInt(timestamp[2]);
+                seconds += parseInt(timestamp[3]);
+                chrome.storage.local.set({ "cr_title_timestamp": seconds }, function () {
+                    console.log('Value is set to ' + seconds);
+                });
+                return;
             }
         }
     }

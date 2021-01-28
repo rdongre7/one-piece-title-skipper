@@ -1,7 +1,7 @@
 {
   "name": "Crunchyroll One Piece Title Card Skipper",
   "version": "1.0.0",
-  "description": "Extension to change Crunchyroll's video playback speed.",
+  "description": "Skip to title card and improve the One Piece experience.",
   "background": {
     "scripts": [
       "background.js"
