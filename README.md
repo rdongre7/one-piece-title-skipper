@@ -1,5 +1,6 @@
 # Crunchyroll One Piece Title Card Skipper 
 Since no one wants to watch a 10 minute recap for every One Piece episode, this extension automatically finds the first commented timestamp (usually the title card) and skips to it.
+It's pretty buggy (not the clown) sometimes, so feel free to make changes or lmk if you find any! Chances are if it doesn't work no one's commented a timestamp, though. 
 
 ## Set-up
 To use: 
