@@ -1,7 +1,7 @@
 {
-  "name": "Crunchyroll One Piece Title Card Skipper",
+  "name": "Crunchyroll One Piece Recap Skipper",
   "version": "1.0.0",
-  "description": "Skip to title card and improve the One Piece experience.",
+  "description": "Skip One Piece Recaps!",
   "background": {
     "scripts": [
       "background.js"
@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*.crunchyroll.com/*"
+        "https://*.crunchyroll.com/one-piece/*"
       ],
       "run_at": "document_end",
       "all_frames": true,

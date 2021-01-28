@@ -5,10 +5,24 @@ window.onload = function () {
         setTimestamp(comments);
     }
     if (videoPlayer != null) {
+        const controls = document.querySelector("#velocity-controls-package");
         videoPlayer.addEventListener('loadeddata', function () {
             getOrUpdatePlaybackValue(this, '');
+            chrome.storage.local.get(['cr_title_timestamp'], function (result) {
+                skipRecapButton(videoPlayer, result.cr_title_timestamp);
+            });
         });
-
+        controls.addEventListener('mousemove', function () {
+            const button = document.querySelector('#cr-skip-recap-button');
+            button.style.display = "inline-block";
+            setTimeout(function () {
+                button.style.display = "none";
+            }, 4000);
+        });
+        controls.addEventListener('mouseleave', function () {
+            const button = document.querySelector('#cr-skip-recap-button');
+            button.style.display = "none";
+        });
         document.addEventListener('keydown', function (e) {
             e.preventDefault();
             chrome.storage.local.get(['cr_title_timestamp'], function (result) {
@@ -45,7 +59,6 @@ function videoControls(videoPlayer, e, timestamp) {
 }
 
 function setTimestamp(comments) {
-    console.log("Reached function");
     if (comments) {
         function extractTimestamp(text) {
             var ind = text.search(/[0-9]:[0-5][0-9]/g);
@@ -70,6 +83,32 @@ function setTimestamp(comments) {
         }
     }
 };
+
+function skipRecapButton(videoPlayer, timestamp) {
+    console.log("Reached skip recap button function");
+    const button = document.createElement('button');
+    button.id = 'cr-skip-recap-button';
+    const text = document.createTextNode("Skip Recap");
+    text.opacity = "100%";
+    button.append(text);
+    button.style.fontSize = '16px';
+    button.style.fontWeight = 'bold';
+    button.style.width = '120px';
+    button.style.height = '40px';
+    button.style.color = '#ffffff';
+    button.style.position = 'absolute';
+    button.style.zIndex = 11;
+    button.style.bottom = '90px';
+    button.style.right = '1%';
+    button.style.background = "black";
+    button.style.opacity = "50%";
+    button.style.cursor = "pointer";
+    button.style.border = "3px solid black";
+    button.onclick = function () {
+        videoPlayer.currentTime = timestamp;
+    }
+    document.querySelector("#velocity-controls-package").append(button);
+}
 
 function showPlaybackRateValue(videoPlayer, playbackRate) {
     const container = document.createElement('div');
