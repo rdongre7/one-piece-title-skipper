@@ -32,12 +32,6 @@ window.onload = function () {
     }
 }
 
-window.onunload = function () {
-    chrome.storage.local.clear(function () {
-        console.log("Storage cleared");
-    })
-}
-
 function videoControls(videoPlayer, e, timestamp) {
     if (e.shiftKey && e.keyCode == 40 || e.shiftKey && e.keyCode == 38) {
         // Increase/decrease video player's playback speed
